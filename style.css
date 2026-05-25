@@ -1,0 +1,306 @@
+:root {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --success: #10b981;
+    --danger: #ef4444;
+    --border: #e2e8f0;
+    --radius: 12px;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Area styling */
+.app-header {
+    background: var(--bg-card);
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+}
+
+.brand h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.accent-text {
+    color: var(--accent);
+}
+
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Container Engine Layout split */
+.app-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 24px;
+    padding: 24px;
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.viewport-card, .telemetry-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fdfdfd;
+}
+
+.panel-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+/* Presentation Canvas Space */
+.presentation-stage {
+    flex: 1;
+    background: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    min-height: 450px;
+}
+
+.slide-viewport {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.upload-dropzone {
+    text-align: center;
+    color: #94a3b8;
+    max-width: 400px;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: #475569;
+}
+
+.upload-dropzone h3 {
+    color: #f1f5f9;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.upload-dropzone p {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+/* Unified Button styling architecture */
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.87rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid var(--border); }
+.btn-secondary:hover { background: #e2e8f0; }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover { opacity: 0.9; }
+.btn-danger.cam-off { background: var(--success); }
+
+.manual-controls {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    background: #f8fafc;
+    border-top: 1px solid var(--border);
+}
+
+/* Machine Vision Elements mapping */
+.video-feed-wrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+    aspect-ratio: 4 / 3;
+}
+
+#webcam {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1); /* Mirror camera feed layout */
+}
+
+#skeletonCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Telemetry Dashboard Data readout rows */
+.telemetry-dashboard {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    background: #f8fafc;
+    flex: 1;
+}
+
+.telemetry-node {
+    background: var(--bg-card);
+    padding: 14px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.telemetry-node.full-width {
+    grid-column: span 2;
+}
+
+.telemetry-node label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.telemetry-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.telemetry-value.highlight {
+    color: var(--accent);
+}
+
+.volume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.vol-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.volume-track-bg {
+    width: 100%;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.volume-fill-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.1s linear;
+}
+
+/* Badges indicators styles */
+.badge {
+    background: #eff6ff;
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.status-badge.standby { background: #f1f5f9; color: #475569; }
+.status-badge.ready { background: #d1fae5; color: #065f46; }
+.status-badge.error { background: #fee2e2; color: #991b1b; }
+
+.fps-counter {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 4px;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandRecog Pro — Presentation System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- MediaPipe Core Frameworks -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <!-- File Parsing Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.16.105/build/pdf.min.js"></script>
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="brand">
+            <span class="logo-dot"></span>
+            <h1>HandRecog <span class="accent-text">Pro</span></h1>
+        </div>
+        <div class="system-status">
+            <span id="status-tag" class="status-badge standby">Initializing Core Engine...</span>
+            <span id="fps-out" class="fps-counter">0 FPS</span>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- LEFT: Presentation Viewport -->
+        <section class="viewport-card">
+            <div class="card-header">
+                <span class="panel-title">Presentation Deck Viewport</span>
+                <span id="page-indicator" class="badge">Slide: 1 / 3</span>
+            </div>
+            
+            <div class="presentation-stage">
+                <div id="slide-canvas-container" class="slide-viewport">
+                    <!-- Default State when no file is uploaded -->
+                    <div class="upload-dropzone" id="dropzone-ui">
+                        <svg class="upload-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <h3>Drop your presentation here</h3>
+                        <p>Supports professional .pptx decks or high-res .pdf files</p>
+                        <label for="slide-upload" class="btn btn-primary">Browse Files</label>
+                        <input type="file" id="slide-upload" accept=".pptx, .pdf" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="manual-controls">
+                <button id="prev-btn" class="btn btn-secondary">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    Previous
+                </button>
+                <button id="next-btn" class="btn btn-primary">
+                    Next
+                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- RIGHT: Interactive Machine Vision Hub -->
+        <section class="telemetry-card">
+            <div class="card-header">
+                <span class="panel-title">Live Machine Vision Hub</span>
+                <button id="cam-toggle-btn" class="btn btn-danger cam-on">Turn Camera Off</button>
+            </div>
+
+            <div class="video-feed-wrapper">
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="skeletonCanvas"></canvas>
+            </div>
+
+            <div class="telemetry-dashboard">
+                <div class="telemetry-node">
+                    <label>Active Gesture</label>
+                    <div id="gesture-out" class="telemetry-value">Booting Sensors...</div>
+                </div>
+                <div class="telemetry-node">
+                    <label>Executed Action</label>
+                    <div id="action-out" class="telemetry-value highlight">Calibrating Hardware</div>
+                </div>
+                <div class="telemetry-node full-width">
+                    <div class="volume-header">
+                        <label>Presentation Volume Monitor</label>
+                        <span id="volume-out" class="vol-value">Volume: 50%</span>
+                    </div>
+                    <div class="volume-track-bg">
+                        <div id="volume-indicator-bar" class="volume-fill-bar" style="width: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Background Audio Anchor for volume modulation feedback -->
+    <audio id="feedback-audio" loop src="https://actions.google.com/sounds/v1/ambiences/morning_birds.ogg"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
